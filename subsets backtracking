@@ -1,0 +1,52 @@
+
+'''
+Given an integer array nums of unique elements, return all possible 
+subsets (the power set).
+
+The solution set must not contain duplicate subsets. Return the solution in any order.
+
+Example 1:
+Input: nums = [1,2,3]
+Output: [[],[1],[2],[1,2],[3],[1,3],[2,3],[1,2,3]]
+
+Example 2:
+Input: nums = [0]
+Output: [[],[0]]
+
+Base Case: If we reach the end of the array, add the current subset to the result list.
+
+Recursive Case: For each element, we have two choices:
+Include the current element in the subset.
+Exclude the current element from the subset.
+
+Track the Current Subset: Use a list to keep track of the current subset during recursion.
+
+Result Storage: Use a list of lists to store all the subsets.
+
+'''
+def subsets(nums):
+    def backtrack(start, curr):
+        # Base case: Add the current subset to the result
+        result.append(curr[:])
+        
+        for i in range(start, len(nums)):
+            # Include nums[i] in the subset
+            curr.append(nums[i])
+            
+
+            # Move on to the next element
+            backtrack(i + 1, curr)
+
+            # Backtrack: remove nums[i] from the subset
+            curr.pop()
+    
+    result = []
+    backtrack(0, [])
+    return result
+
+# Test cases
+print(subsets([1, 2, 3])) # Example 1
+print(subsets([0]))       # Example 2
+print(subsets([1, 2]))    # Example 3
+print(subsets([]))        # Example 4
+print(subsets([4, 5, 6, 7])) # Example 5
