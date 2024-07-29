@@ -24,24 +24,23 @@ Track the Current Subset: Use a list to keep track of the current subset during 
 Result Storage: Use a list of lists to store all the subsets.
 
 '''
+
 def subsets(nums):
-    def backtrack(start, curr):
-        # Base case: Add the current subset to the result
-        result.append(curr[:])
-        
-        for i in range(start, len(nums)):
-            # Include nums[i] in the subset
-            curr.append(nums[i])
-            
-
-            # Move on to the next element
-            backtrack(i + 1, curr)
-
-            # Backtrack: remove nums[i] from the subset
-            curr.pop()
-    
     result = []
-    backtrack(0, [])
+    n = len(nums)
+
+    # DFS function to generate subsets.
+    def dfs(start, path):
+        # append the subset denoted by path
+        result.append(path)
+        
+        # iterate over the indexes from 'start' to the end of the array
+        for i in range(start, n):
+            # dfs for the remaining part of the array
+            dfs(i + 1, path + [nums[i]])
+
+    # Generate subsets, starting with an empty path.
+    dfs(0, [])
     return result
 
 # Test cases
