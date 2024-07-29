@@ -1,0 +1,77 @@
+'''
+Array Reduce Sum Recursively
+
+Given an array of length n, consolidate the sum created by recursively adding index pairs until there's only a single index.
+ 
+
+EXAMPLE(S)
+[1, 2, 3, 4, 5] => 48
+
+Explanation:
+* The next array would be [3, 5, 7, 9] because [1+2, 2+3, 3+4, 4+5]
+* The next array would be [8, 12, 16] because [3+5, 5+7, 7+9]
+* The next array would be [20, 28] because [8+12, 12+16]
+* The final answer would be [48] because [20+28] and there are not enough operands to add
+ 
+
+Time: O(n2) to run through parts of the n length array n times
+Space: O(1) to perform in-place or O(n) to use a new array
+
+FUNCTION SIGNATURE
+function reduceSum(array) {
+def reduceSum(array: list[int]) -> int:
+
+Planning:
+Base case when array is only one element
+    return array[0]
+
+make a new array for each new pass
+for each new array and each index until len-1
+    sum the current index with the next index
+
+return recursively call function with new array
+
+
+'''
+def reduceSum(array: list[int]) -> int:
+    #Base case
+    if len(array) == 1:
+        return array[0]
+    elif array == []:
+        return 0
+
+    #prep a new array for the recursive case
+    newArr = []
+    for i in range(len(array)-1):
+        newArr.append(array[i] + array[i+1])
+
+    return reduceSum(newArr)
+
+#Verify
+
+print(reduceSum([1,2,3,4,5]) == 48)
+print(reduceSum([5]) == 5)
+print(reduceSum([]) == 0)
+print(reduceSum([1,3,5]) == 12)
+print(reduceSum([-5,5]) == 0)
+print(reduceSum([-5,5,-5,5]) == 0)
+print(reduceSum([-5,5,5,-5]) == 20)
+
+#######################################################################
+
+# def reduceSum(array):
+#     #base case
+#   if len(array) == 0:
+#     return 0
+
+#   if len(array) == 1:
+#     return array[0]
+
+# #replace previous value
+#   for i in range(len(array)-1):
+#     array[i] = array[i] + array[i+1]
+
+# #pop the value
+#   array.pop()
+
+#   return reduceSum(array)
